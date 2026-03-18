@@ -1,0 +1,205 @@
+🏗️ Overall Project Structure
+pg-management-system/
+│
+├── client/        # React Frontend
+├── server/        # Node + Express Backend
+├── database/      # SQL scripts / schema
+├── docs/          # API docs / project notes
+├── .env
+├── package.json
+
+⚛️ FRONTEND (React)
+client/
+│
+├── public/   # public files that browser load directly
+│
+├── src/
+│   ├── assets/          # images, icons
+│   ├── components/      # reusable UI components
+│   │   ├── Button.jsx
+│   │   ├── Navbar.jsx
+│   │   ├── Sidebar.jsx
+│   │   └── Modal.jsx
+│   │
+│   ├── pages/           # main pages (route-based)
+│   │   ├── Admin/
+│   │   │   ├── Dashboard.jsx
+│   │   │   ├── Rooms.jsx
+│   │   │   ├── Tenants.jsx
+│   │   │   ├── Bills.jsx
+│   │   │   └── Complaints.jsx
+│   │   │
+│   │   ├── Tenant/
+│   │   │   ├── Dashboard.jsx
+│   │   │   ├── RentStatus.jsx
+│   │   │   ├── Complaints.jsx
+│   │   │   └── Profile.jsx
+│   │   │
+│   │   ├── Login.jsx
+│   │   └── Register.jsx
+│   │
+│   ├── services/        # API calls
+│   │   ├── api.js       # axios config
+│   │   ├── authService.js
+│   │   ├── roomService.js
+│   │   ├── tenantService.js
+│   │   ├── billService.js
+│   │   └── complaintService.js
+│   │
+│   ├── context/         # global state (Auth etc.)
+│   │   └── AuthContext.jsx
+│   │
+│   ├── hooks/           # custom hooks reusable login not ui
+│   │   └── useAuth.js
+│   │
+│   ├── routes/          # route protection define protection eg only admin can access /admin/dashboard
+│   │   └── ProtectedRoute.jsx
+│   │
+│   ├── utils/           # helper functions
+│   │   └── formatDate.js
+│   │
+│   ├── App.jsx   # Defines app structure
+│   └── main.jsx
+│
+├── package.json
+
+
+🚀 BACKEND (Node + Express)
+server/
+│
+├── config/
+│   ├── db.js            # MySQL connection / used this connection globaly 
+│   └── env.js
+│
+├── controllers/         # logic layer / handles req and res / what should happn when api is called
+│   ├── authController.js
+│   ├── roomController.js
+│   ├── tenantController.js
+│   ├── billController.js
+│   └── complaintController.js
+│
+├── routes/              # API routes connect URL -> API
+│   ├── authRoutes.js
+│   ├── roomRoutes.js
+│   ├── tenantRoutes.js
+│   ├── billRoutes.js
+│   └── complaintRoutes.js
+│
+├── models/              # DB queries / only sql queries here
+│   ├── userModel.js
+│   ├── roomModel.js
+│   ├── tenantModel.js
+│   ├── billModel.js
+│   └── complaintModel.js
+│
+├── middleware/    # runs before controller login check / role check / error handling etc
+│   ├── authMiddleware.js    # JWT check
+│   ├── roleMiddleware.js    # admin/tenant access
+│   └── errorHandler.js
+│
+├── services/           # business logic (optional but pro-level)
+│   ├── authService.js
+│   └── rentService.js
+│
+├── utils/    # small re-usable helpers / these can used anywhere 
+│   ├── generateToken.js
+│   └── logger.js
+│
+├── validations/     # data validation
+│   ├── authValidation.js
+│   └── tenantValidation.js
+│
+├── app.js              # express app
+├── server.js           # entry point
+│
+├── package.json
+
+
+🗄️ DATABASE (MySQL)
+database/
+│
+├── schema.sql          # create tables
+├── seed.sql            # sample data
+Example Tables
+
+
+
+
+# Data Flow
+┌──────────────────────────────┐
+│   User (Admin / Tenant)      │
+└──────────────┬───────────────┘
+               │
+               ▼
+┌──────────────────────────────┐
+│     Frontend (React UI)      │
+│  - Forms / Dashboard         │
+└──────────────┬───────────────┘
+               │ HTTP Request (JSON)
+               ▼
+┌──────────────────────────────┐
+│     Express App (app.js)     │
+└──────────────┬───────────────┘
+               │
+               ▼
+┌──────────────────────────────┐
+│         Routes Layer         │
+│   (tenantRoutes, authRoutes) │
+└──────────────┬───────────────┘
+               │
+               ▼
+┌──────────────────────────────┐
+│        Middleware Layer      │
+│  - Auth (JWT যাচ)           │
+│  - Role Check (Admin?)       │
+│  - Validation                │
+└──────────────┬───────────────┘
+               │ Valid Request
+               ▼
+┌──────────────────────────────┐
+│       Controller Layer       │
+│   (Handles req & res)        │
+└──────────────┬───────────────┘
+               │
+               ▼
+┌──────────────────────────────┐
+│        Service Layer         │
+│   (Business Logic)           │
+│   - Room capacity check      │
+│   - Rent calculation         │
+└──────────────┬───────────────┘
+               │
+               ▼
+┌──────────────────────────────┐
+│         Model Layer          │
+│   (SQL Queries)              │
+└──────────────┬───────────────┘
+               │
+               ▼
+┌──────────────────────────────┐
+│        MySQL Database        │
+│   (Tables: tenants, rooms)   │
+└──────────────┬───────────────┘
+               │ Query Result
+               ▲
+               │
+┌──────────────┴───────────────┐
+│        Model Response        │
+└──────────────┬───────────────┘
+               │
+               ▼
+┌──────────────────────────────┐
+│       Service Response       │
+└──────────────┬───────────────┘
+               │
+               ▼
+┌──────────────────────────────┐
+│     Controller Response      │
+│     (JSON to frontend)       │
+└──────────────┬───────────────┘
+               │
+               ▼
+┌──────────────────────────────┐
+│     Frontend UI Update       │
+│ (Success / Error Message)    │
+└──────────────────────────────┘
