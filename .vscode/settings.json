@@ -1,0 +1,48 @@
+{
+    "folder-color.pathColors": [
+        {
+            "folderPath": "M PG/server/config/",
+            "color": "foldercolorizer.color_00ccff"
+        },
+        {
+            "folderPath": "M PG/server/controllers/",
+            "color": "foldercolorizer.color_3300ff"
+        },
+        {
+            "folderPath": "M PG/server/middleware/",
+            "color": "foldercolorizer.color_33cc00"
+        },
+        {
+            "folderPath": "M PG/server/models/",
+            "color": "foldercolorizer.color_9900ff"
+        },
+        {
+            "folderPath": "M PG/server/public/",
+            "color": "foldercolorizer.color_cc0066"
+        },
+        {
+            "folderPath": "M PG/server/routes/",
+            "color": "foldercolorizer.color_cc6600"
+        },
+        {
+            "folderPath": "M PG/server/services/",
+            "color": "foldercolorizer.color_33cc99"
+        },
+        {
+            "folderPath": "M PG/server/utils/",
+            "color": "foldercolorizer.color_33ccff"
+        },
+        {
+            "folderPath": "M PG/client/src/pages/",
+            "color": "foldercolorizer.color_6666ff"
+        },
+        {
+            "folderPath": "M PG/client/src/pages/Admin/",
+            "color": "foldercolorizer.color_666600"
+        },
+        {
+            "folderPath": "M PG/client/src/pages/Tenant/",
+            "color": "foldercolorizer.color_990066"
+        }
+    ]
+}
