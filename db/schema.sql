@@ -26,4 +26,3 @@ CREATE TABLE rooms (
 );
 
 -- Add more tables as needed
-

@@ -1,8 +1,8 @@
 import api from './api';
 
-export const getTenants = () => api.get('/tenants');
-
-export default {
-  getTenants
+const tenantService = {
+  getTenants: () => api.get('../../tenants'),
+  addTenant: (tenantData) => api.post('/tenants', tenantData),
 };
 
+export default tenantService;
