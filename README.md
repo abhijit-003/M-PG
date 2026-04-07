@@ -12,7 +12,6 @@ Client → Route → middleware → Controller → Service → Model → DB
                                Response
 
 
-
 ## server
 mkdir config controllers routes models middleware services utils validations
 touch app.js server.js

@@ -43,6 +43,18 @@
         {
             "folderPath": "M PG/client/src/pages/Tenant/",
             "color": "foldercolorizer.color_990066"
+        },
+        {
+            "folderPath": "M PG/client/src/routes/",
+            "color": "foldercolorizer.color_66cccc"
+        },
+        {
+            "folderPath": "M PG/client/src/services/",
+            "color": "foldercolorizer.color_00cc66"
+        },
+        {
+            "folderPath": "M PG/client/src/utils/",
+            "color": "foldercolorizer.color_666666"
         }
     ]
 }
