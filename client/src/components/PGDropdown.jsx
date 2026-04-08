@@ -65,7 +65,7 @@ const PGDropdown = () => {
         onClick={toggleDropdown}
       >
         PGs ({selectedPGs.length})
-        <svg className={`w-2.5 h-2.5 transition-transform ${isOpen ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <svg  fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
         </svg>
       </button>
@@ -79,15 +79,16 @@ const PGDropdown = () => {
             <div className="max-h-48 overflow-auto">
               {pgs.map(pg => (
                 <label key={pg.id} className="flex items-center p-2.5 hover:bg-gray-50 cursor-pointer border-b border-gray-100 last:border-b-0 text-xs">
+                  <div className="min-w-0 flex-1 truncate">
                   <input
                     type="checkbox"
                     checked={selectedPGs.includes(pg.id)}
                     onChange={() => togglePG(pg.id)}
                     className="h-3.5 w-3.5 text-blue-600 rounded mr-2"
                   />
-                  <div className="min-w-0 flex-1 truncate">
-                    <p className="font-medium text-gray-900 truncate">{pg.name}</p>
-                    <p className="text-gray-500 truncate max-w-[120px]">{pg.address}</p>
+                  
+                    <span className="font-medium text-gray-900 truncate">{pg.name}</span>
+                    <span className="text-gray-500 truncate max-w-[120px]"> | {pg.address}</span>
                   </div>
                 </label>
               ))}
