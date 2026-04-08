@@ -9,6 +9,7 @@ const logger = require('./utils/logger');
 
 // Routes
 const authRoutes = require('./routes/authRoutes');
+const pgRoutes = require('./routes/pgRoutes');
 const roomRoutes = require('./routes/roomRoutes');
 const tenantRoutes = require('./routes/tenantRoutes');
 const billRoutes = require('./routes/billRoutes');
@@ -25,6 +26,7 @@ app.use(express.urlencoded({ extended: true }));
 
 // Routes
 app.use('/api/auth', authRoutes);
+app.use('/api/pgs', pgRoutes);
 app.use('/api/rooms', roomRoutes);
 app.use('/api/tenants', tenantRoutes);
 app.use('/api/bills', billRoutes);

@@ -2,6 +2,8 @@ import React from 'react';
 import { useAuth } from '../hooks/useAuth';
 import { Link, useNavigate } from 'react-router-dom';
 import Dropdown from './Dropdown';
+import PGDropdown from './PGDropdown';
+
 
 const Navbar = () => {
   const { user, logout } = useAuth();
@@ -32,10 +34,12 @@ const Navbar = () => {
       <h1>PG Management</h1>
       {user ? (
         <div className="navbar-right">
+
           <Dropdown 
             title={`Welcome, ${user.email}`} 
             options={user.role === 'admin' ? adminOptions : tenantOptions} 
           />
+
           <button onClick={handleLogout} className="logout-btn">
             Logout
           </button>
@@ -46,4 +50,5 @@ const Navbar = () => {
 };
 
 export default Navbar;
+
 

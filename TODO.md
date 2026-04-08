@@ -1,34 +1,21 @@
-# PG Management System - Complete!
+# Room Addition Feature TODO
 
-## Backend (Node + Express) ✅
-Full structure + admin/tenant login API.
+## Status: In Progress
 
-## Frontend (React) ✅
-Full structure + login UI with role select, auth context, protected routes.
+### Steps from Approved Plan:
+- [x] 1. Update db/schema.sql (ALTER TABLE rooms)
+- [x] 2. Implement server/models/roomModel.js
+- [x] 3. Implement server/controllers/roomController.js
+- [x] 4. Update client/src/services/roomService.js
+- [x] 5. Implement client/src/pages/Admin/Rooms.jsx
+- [x] 6. Test DB migration, restart server, test UI
 
-## Setup Commands:
-cd server && npm init -y && npm i express cors helmet mysql2 bcryptjs jsonwebtoken joi dotenv
-cd ../client && npm i react-router-dom axios
+**All steps complete!** ✅
 
-DB Setup (MySQL):
-```sql
-CREATE DATABASE pg_management;
-USE pg_management;
-CREATE TABLE users (
-  id INT AUTO_INCREMENT PRIMARY KEY,
-  email VARCHAR(255) UNIQUE,
-  password VARCHAR(255),
-  role ENUM('admin', 'tenant'),
-  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-);
--- Insert test: INSERT INTO users (email, password, role) VALUES ('admin@test.com', '$2a$12$...', 'admin');
-```
+**Feature implemented successfully.**
 
-**Run:**
-- Backend: cd server && node server.js
-- Frontend: cd client && npm start
-
-Login test: admin@test.com / password (hash needed), role 'admin' or 'tenant'.
-
-Project Structure.txt followed exactly. All files created, no unnecessary logic added except login.
+**Migration command:** `mysql -u root -p < db/schema.sql` (in project root)
+**Server:** `cd server && npm start`
+**Client:** `cd client && npm start`
+**Test:** Login as admin@pg.com -> Rooms -> Add room
 
