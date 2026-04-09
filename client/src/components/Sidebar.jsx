@@ -1,14 +1,11 @@
 import React from 'react';
 
+import AdminSidebar from './AdminSidebar';
+
 const Sidebar = ({ role }) => {
-  return (
-    <aside className="sidebar">
-      <ul>
-        <li>Dashboard</li>
-        {/* Role-based menu */}
-      </ul>
-    </aside>
-  );
+  if (role !== 'admin') return null;
+  
+  return <AdminSidebar />;
 };
 
 export default Sidebar;

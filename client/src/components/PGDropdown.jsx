@@ -2,6 +2,132 @@ import React, { useState, useEffect, useRef } from 'react';
 import usePG from '../hooks/usePG';
 import { getMyPGs } from '../services/pgService';
 
+// ================================
+// STYLE CONSTANTS - Easy customization
+// ================================
+const STYLES = {
+  // Button - Compact right-aligned
+  button: {
+    width: '220px',
+    height: '25px',
+    borderRadius: '10px',
+    border: '1px solid #ccc',
+    background: '#2563eb',
+    color: 'white',
+    fontSize: '13px',
+    fontWeight: '600',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    padding: '0 15px',
+    cursor: 'pointer',
+    position: 'relative',
+  },
+
+  // Arrow icon - Small chevron
+  arrow: {
+    fontSize: '18px',
+    transition: 'transform 0.2s ease',
+  },
+
+  // Dropdown container - Right aligned overlay
+  dropdown: {
+    position: 'absolute',
+    top: '100%',
+    right: '0px', // Right side positioning
+    width: '260px',
+    background: 'white',
+    border: '1px solid #ddd',
+    borderRadius: '10px',
+    boxShadow: '0 10px 25px rgba(0,0,0,0.15)',
+    overflow: 'hidden',
+    zIndex: 9999,
+    maxHeight: '300px',
+  },
+
+  // Animation - Smooth open/close
+  dropdownAnimation: (isOpen) => ({
+    maxHeight: isOpen ? '300px' : '0px',
+    opacity: isOpen ? 1 : 0,
+    transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+  }),
+
+  // List item - Checkbox + PG info
+  listItem: {
+    display: 'flex',
+    alignItems: 'center',
+    padding: '10px',
+    borderBottom: '1px solid #eee',
+    cursor: 'pointer',
+    transition: 'background 0.15s ease',
+  },
+
+  // Checkbox - Standard size
+  checkbox: {
+    marginRight: '10px',
+    width: '16px',
+    height: '16px',
+  },
+
+  // PG name - Bold primary text
+  pgName: {
+    fontWeight: '500',
+    fontSize: '14px',
+    color: '#111',
+  },
+
+  // PG address - Secondary muted text
+  pgAddress: {
+    fontSize: '12px',
+    color: '#666',
+    marginTop: '2px',
+  },
+
+  // Action buttons container
+  actions: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    padding: '10px',
+    borderTop: '1px solid #eee',
+    background: '#fafafa',
+  },
+
+  // Clear button - Secondary action
+  clearBtn: {
+    padding: '6px 12px',
+    borderRadius: '6px',
+    border: '1px solid #ddd',
+    background: 'white',
+    cursor: 'pointer',
+    fontSize: '12px',
+  },
+
+  // Apply button - Primary action
+  applyBtn: {
+    padding: '6px 12px',
+    borderRadius: '6px',
+    border: 'none',
+    background: '#2563eb',
+    color: 'white',
+    cursor: 'pointer',
+    fontSize: '12px',
+  },
+
+  // Loading/Empty states
+  emptyState: {
+    padding: '20px',
+    textAlign: 'center',
+    color: '#888',
+    fontSize: '13px',
+  },
+
+  // Container - Right side positioning
+  container: {
+    position: 'relative',
+    display: 'inline-flex',
+  }
+};
+
 const PGDropdown = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [pgs, setPgs] = useState([]);
@@ -9,10 +135,12 @@ const PGDropdown = () => {
   const { selectedPGs, togglePG } = usePG();
   const dropdownRef = useRef(null);
 
+  // 🔥 Fetch admin PGs on mount
   useEffect(() => {
     fetchPGs();
   }, []);
 
+  // 👆 Click outside to close dropdown
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
@@ -25,84 +153,103 @@ const PGDropdown = () => {
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, [isOpen]);
 
+  // 📡 API - Get user's PGs
   const fetchPGs = async () => {
     try {
       setLoading(true);
       const response = await getMyPGs();
-      console.log('PGs response:', response);
+      console.log('✅ PGs loaded:', response.data);
       setPgs(response.data || []);
     } catch (error) {
-      console.error('Error fetching PGs:', error);
+      console.error('❌ PG fetch failed:', error);
       setPgs([]);
     } finally {
       setLoading(false);
     }
   };
 
+  // 🗑️ Clear all selections
   const handleClear = () => {
     selectedPGs.forEach(id => togglePG(id));
     setIsOpen(false);
   };
 
-  const toggleDropdown = () => {
-    setIsOpen(!isOpen);
+  // ✅ Apply and close
+  const handleApply = () => {
+    setIsOpen(false);
   };
 
+  const toggleDropdown = () => setIsOpen(!isOpen);
+
+  // 🔄 LOADING STATE
   if (loading) {
     return (
-      <div className="relative inline-block">
-        <button className="bg-gray-200 text-gray-600 px-2.5 py-1.5 rounded text-xs font-medium h-7 flex items-center justify-center min-w-[60px]">
-          Loading...
+      <div style={STYLES.container}>
+        <button style={{...STYLES.button, background: '#f3f4f6', color: '#6b7280'}}>
+          Loading PGs...
         </button>
       </div>
     );
   }
 
   return (
-    <div ref={dropdownRef} className="relative inline-block">
-      <button 
-        className="bg-blue-600 hover:bg-blue-700 text-white px-2.5 py-1.5 rounded flex items-center gap-1 text-xs font-semibold shadow transition-all duration-200 min-w-[60px] h-7 border hover:border-blue-300"
+    <div ref={dropdownRef} style={STYLES.container}>
+      {/* 🔹 BUTTON - Compact right-aligned */}
+      <button
         onClick={toggleDropdown}
+        style={STYLES.button}
+        title="Select PGs"
       >
         PGs ({selectedPGs.length})
-        <svg  fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-        </svg>
+        <span style={STYLES.arrow}>⌄</span>
       </button>
+
+      {/* 🔽 DROPDOWN - Right aligned overlay */}
       {isOpen && (
-        <div className="absolute right-0 top-full mt-1 w-56 bg-white border border-gray-200 rounded-lg shadow-xl z-[9999]">
+        <div 
+          style={{
+            ...STYLES.dropdown,
+            ...STYLES.dropdownAnimation(isOpen)
+          }}
+        >
+          {/* 📭 EMPTY STATE */}
           {pgs.length === 0 ? (
-            <div className="p-3 text-center text-gray-500 text-xs">
+            <div style={STYLES.emptyState}>
               No PGs found
+              <div style={{fontSize: '11px', opacity: 0.7}}>Create your first PG</div>
             </div>
           ) : (
-            <div className="max-h-48 overflow-auto">
-              {pgs.map(pg => (
-                <label key={pg.id} className="flex items-center p-2.5 hover:bg-gray-50 cursor-pointer border-b border-gray-100 last:border-b-0 text-xs">
-                  <div className="min-w-0 flex-1 truncate">
-                  <input
-                    type="checkbox"
-                    checked={selectedPGs.includes(pg.id)}
-                    onChange={() => togglePG(pg.id)}
-                    className="h-3.5 w-3.5 text-blue-600 rounded mr-2"
-                  />
-                  
-                    <span className="font-medium text-gray-900 truncate">{pg.name}</span>
-                    <span className="text-gray-500 truncate max-w-[120px]"> | {pg.address}</span>
-                  </div>
-                </label>
-              ))}
+            <>
+              {/* 📋 PG LIST */}
+              <div style={{maxHeight: '180px', overflowY: 'auto'}}>
+                {pgs.map(pg => (
+                  <label key={pg.id} style={STYLES.listItem} title={pg.address}>
+                    <input
+                      type="checkbox"
+                      checked={selectedPGs.includes(pg.id)}
+                      onChange={() => togglePG(pg.id)}
+                      style={STYLES.checkbox}
+                    />
+                    <div style={{minWidth: 0, flex: 1}}>
+                      <div style={STYLES.pgName}>{pg.name}</div>
+                      <div style={STYLES.pgAddress}>{pg.address}</div>
+                    </div>
+                  </label>
+                ))}
+              </div>
+
+              {/* 🎛️ ACTION BUTTONS */}
               {selectedPGs.length > 0 && (
-                <div className="border-t border-gray-100 p-2">
-                  <button 
-                    className="w-full text-left p-1.5 text-red-600 hover:bg-red-50 rounded text-xs font-medium"
-                    onClick={handleClear}
-                  >
-                    Clear all ({selectedPGs.length})
+                <div style={STYLES.actions}>
+                  <button onClick={handleClear} style={STYLES.clearBtn}>
+                    Clear ({selectedPGs.length})
+                  </button>
+                  <button onClick={handleApply} style={STYLES.applyBtn}>
+                    Apply
                   </button>
                 </div>
               )}
-            </div>
+            </>
           )}
         </div>
       )}
@@ -111,3 +258,4 @@ const PGDropdown = () => {
 };
 
 export default PGDropdown;
+

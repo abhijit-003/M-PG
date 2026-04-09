@@ -2,6 +2,7 @@ import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { AuthProvider } from './context/AuthContext';
 import { PGProvider } from './context/PGContext';
+import { TabProvider } from './context/TabContext';
 import ProtectedRoute from './routes/ProtectedRoute';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
@@ -13,6 +14,8 @@ import AdminTenants from './pages/Admin/Tenants';
 import PGs from './pages/Admin/PGs';
 import AdminBills from './pages/Admin/Bills';
 import AdminComplaints from './pages/Admin/Complaints';
+import AdminLayout from './components/AdminLayout';
+import Tabs from './components/Tabs';
 import PGSelector from './components/PGSelector';
 import TenantDashboard from './pages/Tenant/Dashboard';
 import TenantRentStatus from './pages/Tenant/RentStatus';
@@ -22,68 +25,81 @@ import './App.css';
 
 const App = () => {
   return (
-    <AuthProvider>      <PGProvider>       <Router>
-      <div className="app-wrapper">
-        <Navbar />
-        <PGSelector />
-        <main className="main-content">
-          <Routes>
-            <Route path="/login" element={<Login />} />
-            <Route path="/register" element={<Register />} />
+    <AuthProvider>
+<PGProvider>
+        <TabProvider>
+          <Router>
+          <div className="app-wrapper">
+            <Routes>
+              <Route path="/login" element={<Login />} />
+              <Route path="/register" element={<Register />} />
 
-            {/* Admin routes */}
-            <Route path="/admin/dashboard" element={
-              <ProtectedRoute allowedRoles={['admin']}>
-                <AdminDashboard />
-              </ProtectedRoute>
-            } />
-            <Route path="/admin/rooms" element={
-              <ProtectedRoute allowedRoles={['admin']}>
-                <AdminRooms />
-              </ProtectedRoute>
-            } />
-            <Route path="/admin/tenants" element={
-              <ProtectedRoute allowedRoles={['admin']}>
-                <AdminTenants />
-              </ProtectedRoute>
-            } />
-            <Route path="/admin/pgs" element={
-              <ProtectedRoute allowedRoles={['admin']}>
-                <PGs />                </ProtectedRoute>
-            } />              <Route path="/admin/bills" element={<ProtectedRoute allowedRoles={['admin']}>                  <AdminBills />                </ProtectedRoute>} />              <Route path="/admin/complaints" element={
-              <ProtectedRoute allowedRoles={['admin']}>
-                <AdminComplaints />
-              </ProtectedRoute>
-            } />
+              {/* 🔥 ADMIN - Split screen layout */}
+              <Route path="/admin/*" element={
+                <ProtectedRoute allowedRoles={['admin']}>
+                  <AdminLayout>
+                    <Tabs />
+                  </AdminLayout>
+                </ProtectedRoute>
+              } />
 
-            {/* Tenant routes */}
-            <Route path="/tenant/dashboard" element={
-              <ProtectedRoute allowedRoles={['tenant']}>
-                <TenantDashboard />
-              </ProtectedRoute>
-            } />
-            <Route path="/tenant/rent-status" element={
-              <ProtectedRoute allowedRoles={['tenant']}>
-                <TenantRentStatus />
-              </ProtectedRoute>
-            } />
-            <Route path="/tenant/complaints" element={
-              <ProtectedRoute allowedRoles={['tenant']}>
-                <TenantComplaints />
-              </ProtectedRoute>
-            } />
-            <Route path="/tenant/profile" element={
-              <ProtectedRoute allowedRoles={['tenant']}>
-                <TenantProfile />
-              </ProtectedRoute>
-            } />
+              {/* 👤 TENANT - Regular layout */}
+              <Route path="/tenant/dashboard" element={
+                <ProtectedRoute allowedRoles={['tenant']}>
+                  <div className="tenant-layout">
+                    <Navbar />
+                    <PGSelector />
+                    <main className="main-content">
+                      <TenantDashboard />
+                    </main>
+                    <Footer />
+                  </div>
+                </ProtectedRoute>
+              } />
+              <Route path="/tenant/rent-status" element={
+                <ProtectedRoute allowedRoles={['tenant']}>
+                  <div className="tenant-layout">
+                    <Navbar />
+                    <PGSelector />
+                    <main className="main-content">
+                      <TenantRentStatus />
+                    </main>
+                    <Footer />
+                  </div>
+                </ProtectedRoute>
+              } />
+              <Route path="/tenant/complaints" element={
+                <ProtectedRoute allowedRoles={['tenant']}>
+                  <div className="tenant-layout">
+                    <Navbar />
+                    <PGSelector />
+                    <main className="main-content">
+                      <TenantComplaints />
+                    </main>
+                    <Footer />
+                  </div>
+                </ProtectedRoute>
+              } />
+              <Route path="/tenant/profile" element={
+                <ProtectedRoute allowedRoles={['tenant']}>
+                  <div className="tenant-layout">
+                    <Navbar />
+                    <PGSelector />
+                    <main className="main-content">
+                      <TenantProfile />
+                    </main>
+                    <Footer />
+                  </div>
+                </ProtectedRoute>
+              } />
 
-            <Route path="/" element={<Navigate to="/login" />} />
-          </Routes>
-        </main>
-        <Footer />
-      </div>
-    </Router>      </PGProvider>   </AuthProvider>
+              <Route path="/" element={<Navigate to="/login" />} />
+            </Routes>
+          </div>
+        </Router>
+          </TabProvider>
+      </PGProvider>
+    </AuthProvider>
   );
 };
 
