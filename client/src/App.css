@@ -161,6 +161,10 @@ body {
   background: #f1f5f9;
 }
 
+.tab-header:hover- {
+  color: #1e40af;
+  background: #f1f5f9;
+}
 .tab-header.active {
   color: #1e40af;
   background: #dbeafe;
