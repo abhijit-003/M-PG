@@ -50,9 +50,53 @@ const Navbar = () => {
       <h1>PG Management</h1>
 
       {user ? (
-        <div className="navbar-right">
+        <div className="user-actions" style={{ marginLeft: 'auto', marginRight: '30px', display: 'flex', alignItems: 'center', gap: '1.5rem' }}>
+          <span style={{ fontWeight: '500' }}>{user.full_name || user.email}</span>
+          <span style={{ cursor: 'pointer', padding: '0.5rem', borderRadius: '4px', transition: 'background 0.2s' }}
+            onClick={() => {
+              const profilePath = user.role === 'admin' ? '/admin/profile' : '/tenant/profile';
+              navigate(profilePath);
+            }}
+            onMouseOver={(e) => e.target.style.background = '#334155'}
+            onMouseOut={(e) => e.target.style.background = 'transparent'}
+          >
+            Profile
+          </span>
+          <button 
+            onClick={handleLogout}
+            style={{
+              background: 'transparent',
+              border: '1px solid #94a3b8',
+              color: 'white',
+              padding: '0.5rem 1rem',
+              borderRadius: '6px',
+              cursor: 'pointer',
+              fontSize: '0.9rem',
+              transition: 'all 0.2s ease'
+            }}
+            onMouseOver={(e) => {
+              e.target.style.background = '#334155';
+              e.target.style.borderColor = '#475569';
+            }}
+            onMouseOut={(e) => {
+              e.target.style.background = 'transparent';
+              e.target.style.borderColor = '#94a3b8';
+            }}
+          >
+            Logout
+          </button>
         </div>
-      ) : null}
+      ) : (
+        <div className="auth-links">
+          <Link to="/login" className="auth-link" style={{ color: 'white', textDecoration: 'none', padding: '0 0.5rem' }}>
+            Login
+          </Link>
+          <span style={{ color: 'rgb(156 163 175)', padding: '0 0.5rem' }}>|</span>
+          <Link to="/register" className="auth-link" style={{ color: 'white', textDecoration: 'none', padding: '0 0.5rem' }}>
+            Sign Up
+          </Link>
+        </div>
+      )}
     </nav>
   );
 };

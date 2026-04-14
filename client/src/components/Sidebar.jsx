@@ -2,8 +2,12 @@ import React from 'react';
 
 import AdminSidebar from './AdminSidebar';
 
-const Sidebar = ({ role }) => {
-  if (role !== 'admin') return null;
+import { useAuth } from '../hooks/useAuth';
+
+const Sidebar = () => {
+  const { user } = useAuth();
+  
+  if (user?.role !== 'admin') return null;
   
   return <AdminSidebar />;
 };

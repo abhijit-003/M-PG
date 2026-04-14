@@ -32,7 +32,7 @@ body {
 .admin-sidebar {
   width: 20%;
   min-width: 280px;
-  background: white;
+  background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 50%, #1d4ed8 100%);
   color: white;
   position: fixed;
   left: 0;
@@ -47,16 +47,17 @@ body {
 }
 
 .admin-sidebar-content {
-  padding: 1rem 0;
+  padding: 1.5rem 1rem;
 }
 
 .sidebar-section h3 {
-  font-size: 0.9rem;
+  font-size: 1rem;
   font-weight: 600;
-  margin: 0 0 0.5rem 1rem;
-  opacity: 0.9;
+  margin: 0 0 0.75rem 0;
+  opacity: 1;
   text-transform: uppercase;
   letter-spacing: 0.5px;
+  padding-left: 1rem;
 }
 
 .pg-count {
@@ -161,10 +162,6 @@ body {
   background: #f1f5f9;
 }
 
-.tab-header:hover- {
-  color: #1e40af;
-  background: #f1f5f9;
-}
 .tab-header.active {
   color: #1e40af;
   background: #dbeafe;
@@ -236,6 +233,157 @@ body {
   color: white;
 }
 
+.auth-links {
+  display: flex;
+  align-items: center;
+  gap: 0;
+}
+
+.auth-link {
+  color: white;
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.2s ease;
+  padding: 0 0.75rem;
+}
+
+.auth-link:hover {
+  color: #60a5fa !important;
+  text-decoration: underline;
+}
+
+/* 🔥 LOGIN & REGISTER THEME */
+.login-page, .register-page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  padding: 2rem;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+.login-page form, .register-page form {
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  padding: 3rem;
+  border-radius: 20px;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+  width: 100%;
+  max-width: 400px;
+  border: 1px solid rgba(255,255,255,0.2);
+}
+
+.register-page h1 {
+  text-align: center;
+  color: #1f2937;
+  margin-bottom: 2.5rem;
+  font-size: 1.75rem;
+  font-weight: 600;
+  padding-bottom: 1rem;
+  border-bottom: 2px solid #e5e7eb;
+}
+
+.login-page h1 {
+  text-align: center;
+  color: #1f2937;
+  margin-bottom: 1.5rem;
+  font-size: 2rem;
+  font-weight: 700;
+}
+
+.login-page select,
+.login-page input,
+.register-page input {
+  width: 100%;
+  padding: 1.125rem;
+  margin-bottom: 1.25rem;
+  border: 2px solid #e5e7eb;
+  border-radius: 12px;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  background: white;
+  box-sizing: border-box;
+}
+
+/* Enhanced Button for Auth Pages */
+.btn {
+  width: 100%;
+  padding: 1.125rem 2rem;
+  background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+  color: white;
+  border: none;
+  border-radius: 12px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 14px 0 rgba(59, 130, 246, 0.4);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  position: relative;
+  overflow: hidden;
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px 0 rgba(59, 130, 246, 0.5);
+  background: linear-gradient(135deg, #2563eb 0%, #1e40af 100%);
+}
+
+.btn:active {
+  transform: translateY(0);
+}
+
+.btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+  transition: left 0.5s;
+}
+
+.btn:hover::before {
+  left: 100%;
+}
+
+.login-page select:focus,
+.login-page input:focus,
+.register-page input:focus {
+  outline: none;
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+  transform: translateY(-1px);
+}
+
+.login-page p, .register-page p {
+  text-align: center;
+  margin-top: 1rem;
+  color: #4b5563;
+}
+
+.login-page a, .register-page a {
+  color: #3b82f6;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.login-page a:hover, .register-page a:hover {
+  text-decoration: underline;
+}
+
+.login-page .error, .register-page p.error {
+  background: #fee2e2;
+  color: #dc2626;
+  padding: 0.75rem;
+  border-radius: 8px;
+  margin-top: 1rem;
+  border: 1px solid #fecaca;
+}
+
 @media (max-width: 768px) {
   .footer-content {
     flex-direction: column;
@@ -243,3 +391,97 @@ body {
     text-align: center;
   }
 }
+
+/* ✨ MODAL PANEL STYLES - Right Side Square Popup */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(8px);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 2rem;
+  animation: modalFadeIn 0.3s ease-out;
+}
+
+.modal-overlay .modal {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+  width: 100%;
+  max-width: 500px;
+  max-height: 90vh;
+  overflow-y: auto;
+  animation: slideInRight 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+}
+
+.modal-overlay .modal {
+  margin-right: 2rem;
+}
+
+@keyframes modalFadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideInRight {
+  from { 
+    opacity: 0;
+    transform: translateX(100%);
+  }
+  to { 
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5rem 1.5rem 0;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.modal-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #1f2937;
+  margin: 0;
+}
+
+.modal-close {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  color: #6b7280;
+  cursor: pointer;
+  padding: 0.5rem;
+  border-radius: 50%;
+  transition: all 0.2s;
+}
+
+.modal-close:hover {
+  background: #f3f4f6;
+  color: #374151;
+}
+
+.modal-body {
+  padding: 1.5rem;
+}
+
+.modal-footer {
+  padding: 1rem 1.5rem 1.5rem;
+  border-top: 1px solid #e5e7eb;
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+}
+
+

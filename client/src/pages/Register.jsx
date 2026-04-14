@@ -23,14 +23,17 @@ const Register = () => {
 
   return (
     <div className="register-page">
-      <h1>Register as Tenant</h1>
-      <p><a href="/login">Already have account? Login</a></p>
+      <h1 style={{ marginTop: "20px", marginRight: "20px", marginBottom: "20px", marginLeft: "20px" }}>
+  Register as Tenant
+</h1>
+      
       <form onSubmit={handleSubmit}>
         <input type="text" placeholder="Full Name" value={formData.full_name} onChange={(e) => setFormData({...formData, full_name: e.target.value})} required />
         <input type="number" placeholder="Age" value={formData.age} onChange={(e) => setFormData({...formData, age: parseInt(e.target.value) || 0})} required />
         <input type="email" placeholder="Email" value={formData.email} onChange={(e) => setFormData({...formData, email: e.target.value})} required />
         <input type="password" placeholder="Password" value={formData.password} onChange={(e) => setFormData({...formData, password: e.target.value})} required />
         <Button type="submit">Register</Button>
+        <p><a href="/login">Already have account? Login</a></p>
         {error && <p>{error}</p>}
       </form>
     </div>

@@ -256,6 +256,3 @@ const PGDropdown = () => {
     </div>
   );
 };
-
-export default PGDropdown;
-

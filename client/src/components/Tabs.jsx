@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { useTabs } from '../context/TabContext';
+import TabContent from './TabContent';
 
 const TABS = [
   { id: 'dashboard', label: 'Dashboard', component: 'Dashboard' },
@@ -56,11 +57,7 @@ const Tabs = () => {
             key={tabId}
             className={`tab-pane ${index === activeTabIndex ? 'active' : ''}`}
           >
-            {/* Placeholder - replace with actual components */}
-            <div className="tab-placeholder">
-              <h2>{TABS.find(t => t.id === tabId)?.label} Content</h2>
-              <p>Tab {index + 1} active</p>
-            </div>
+            <TabContent tabId={tabId} />
           </div>
         ))}
       </div>

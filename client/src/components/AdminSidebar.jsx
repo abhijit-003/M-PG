@@ -8,12 +8,12 @@ const AdminSidebar = () => {
 
   // 🔥 Tab mapping from sidebar clicks
   const sidebarTabs = [
-    { id: 'dashboard', label: '📊 Dashboard', icon: '📊' },
-    { id: 'pgs', label: '🏠 PGs', icon: '🏠' },
-    { id: 'rooms', label: '🛏️ Rooms', icon: '🛏️' },
-    { id: 'tenants', label: '👥 Tenants', icon: '👥' },
-    { id: 'bills', label: '💰 Bills', icon: '💰' },
-    { id: 'complaints', label: '⚠️ Complaints', icon: '⚠️' }
+    { id: 'dashboard', label: 'Dashboard', icon: '📊' },
+    { id: 'pgs', label: 'PGs', icon: '🏠' },
+    { id: 'rooms', label: 'Rooms', icon: '🛏️' },
+    { id: 'tenants', label: 'Tenants', icon: '👥' },
+    { id: 'bills', label: 'Bills', icon: '💰' },
+    { id: 'complaints', label: 'Complaints', icon: '⚠️' }
   ];
 
   const handleTabClick = (tabId) => {

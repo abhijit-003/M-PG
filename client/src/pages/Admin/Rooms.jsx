@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { getRooms, createRoom } from '../../services/roomService.js';
 import usePG from '../../hooks/usePG';
+import AddRoomButton from '../../components/AddRoomButton';
 import Button from '../../components/Button';
-import Modal from '../../components/Modal';
+import SidePanel from '../../components/SidePanel';
 
 const roomTypes = [
   'single_sharing',
@@ -125,7 +126,7 @@ const Rooms = () => {
     <div className="p-6 max-w-7xl mx-auto">
       <div className="flex justify-between items-center mb-6">
         <h1 className="text-3xl font-bold text-gray-900">Rooms Management</h1>
-        <Button onClick={() => setShowModal(true)}>Add New Room</Button>
+        <AddRoomButton onClick={() => setShowModal(true)} />
       </div>
 
       {/* Rooms Table */}
@@ -176,8 +177,8 @@ const Rooms = () => {
         )}
       </div>
 
-      {/* Add Room Modal */}
-      <Modal
+      {/* Add Room Side Panel */}
+      <SidePanel
         isOpen={showModal}
         onClose={() => setShowModal(false)}
         title="Add New Room"
@@ -291,7 +292,7 @@ const Rooms = () => {
             </Button>
           </div>
         </form>
-      </Modal>
+      </SidePanel>
     </div>
   );
 };
