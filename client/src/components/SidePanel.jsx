@@ -5,81 +5,88 @@ const SidePanel = ({ isOpen, onClose, title, children }) => {
 
   return (
     <>
-      {/* Blur backdrop */}
+      {/* Blur backdrop - full screen */}
       <div 
-        className="side-panel-backdrop" 
-        onClick={onClose}
         style={{
           position: 'fixed',
           top: 0,
           left: 0,
           right: 0,
           bottom: 0,
-          background: 'rgba(0, 0, 0, 0.5)',
-          backdropFilter: 'blur(10px)',
+          backgroundColor: 'rgba(0, 0, 0, 0.6)',
+          backdropFilter: 'blur(12px)',
           zIndex: 999,
           animation: 'fadeIn 0.3s ease-out'
         }}
+        onClick={onClose}
       />
       
-      {/* Right side square panel */}
+      {/* Rectangle right panel - larger, better positioned */}
       <div 
-        className="side-panel" 
         style={{
           position: 'fixed',
           top: '50%',
-          right: '2rem',
+          right: '30%',
           transform: 'translateY(-50%)',
-          width: '420px',
-          maxHeight: '90vh',
-          background: 'white',
-          borderRadius: '16px',
-          boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.3)',
+          width: '600px',
+          maxWidth: '90vw',
+          maxHeight: '80vh',
+          minHeight: '300px',
+          backgroundColor: 'white',
+          borderRadius: '20px',
+          boxShadow: '0 35px 80px rgba(0, 0, 0, 0.35)',
           zIndex: 1000,
-          animation: 'slideInRight 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94)',
-          overflow: 'hidden'
+          overflow: 'hidden',
+          animation: 'slideInRight 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94)'
         }}
       >
         {/* Header */}
-        <div style={{
-          padding: '1.5rem',
-          borderBottom: '1px solid #e5e7eb',
-          display: 'flex',
-          justifyContent: 'space-between',
-          alignItems: 'center',
-          background: '#f8fafc'
-        }}>
-          <h2 style={{
-            margin: 0,
-            fontSize: '1.25rem',
-            fontWeight: '700',
-            color: '#1f2937'
-          }}>
+        <div 
+          style={{
+            padding: '1.75rem 2rem',
+            borderBottom: '1px solidrgb(15, 39, 88)',
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            backgroundColor: '#f8fafc',
+            position: 'sticky',
+            top: 0,
+            zIndex: 10
+          }}
+        >
+          <h2 
+            style={{
+              margin: 0,
+              fontSize: '1.5rem',
+              fontWeight: '700',
+              color: '#1f2937'
+            }}
+          >
             {title}
           </h2>
           <button 
             onClick={onClose}
             style={{
-              background: 'none',
+              backgroundColor: 'transparent',
               border: 'none',
-              fontSize: '1.5rem',
+              fontSize: '1.75rem',
               color: '#6b7280',
               cursor: 'pointer',
-              padding: '0.5rem',
-              borderRadius: '50%',
-              width: '36px',
-              height: '36px',
+              padding: '0.75rem',
+              borderRadius: '12px',
+              width: '44px',
+              height: '44px',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              transition: 'all 0.2s'
+              transition: 'all 0.2s ease'
             }}
             onMouseEnter={(e) => {
-              e.target.style.background = '#f3f4f6';
+              e.target.style.backgroundColor = '#f3f4f6';
               e.target.style.color = '#374151';
             }}
             onMouseLeave={(e) => {
-              e.target.style.background = 'transparent';
+              e.target.style.backgroundColor = 'transparent';
               e.target.style.color = '#6b7280';
             }}
           >
@@ -87,17 +94,20 @@ const SidePanel = ({ isOpen, onClose, title, children }) => {
           </button>
         </div>
         
-        {/* Content */}
-        <div style={{
-          padding: '1.5rem',
-          maxHeight: 'calc(90vh - 80px)',
-          overflowY: 'auto'
-        }}>
+        {/* Scrollable content - better padding */}
+        <div 
+          style={{
+            padding: '2rem',
+            height: 'calc(85vh - 120px)',
+            overflowY: 'auto',
+            overscrollBehavior: 'contain'
+          }}
+        >
           {children}
         </div>
       </div>
 
-      <style jsx>{`
+      <style>{`
         @keyframes fadeIn {
           from { opacity: 0; }
           to { opacity: 1; }
@@ -105,12 +115,30 @@ const SidePanel = ({ isOpen, onClose, title, children }) => {
         @keyframes slideInRight {
           from { 
             opacity: 0;
-            transform: translateY(-50%) translateX(100%);
+            transform: translateY(-50%) translateX(30px);
           }
           to { 
             opacity: 1;
             transform: translateY(-50%) translateX(0);
           }
+        }
+        /* Smooth scroll */
+        * {
+          scrollbar-width: thin;
+        }
+        *::-webkit-scrollbar {
+          width: 6px;
+        }
+        *::-webkit-scrollbar-track {
+          background: #f1f5f9;
+          borderRadius: 3px;
+        }
+        *::-webkit-scrollbar-thumb {
+          background: #cbd5e1;
+          borderRadius: 3px;
+        }
+        *::-webkit-scrollbar-thumb:hover {
+          background: #94a3b8;
         }
       `}</style>
     </>
@@ -118,5 +146,4 @@ const SidePanel = ({ isOpen, onClose, title, children }) => {
 };
 
 export default SidePanel;
-
 
