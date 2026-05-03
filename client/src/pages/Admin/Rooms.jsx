@@ -129,6 +129,8 @@ const Rooms = () => {
         <AddRoomButton onClick={() => setShowModal(true)} />
       </div>
 
+
+
       {/* Rooms Table */}
       <div className="bg-white shadow-md rounded-lg overflow-hidden">
         <table className="min-w-full divide-y divide-gray-200">
