@@ -16,10 +16,4 @@ const PGSelector = () => {
   );
 };
 
-
-
-
-
-
 export default PGSelector;
-
